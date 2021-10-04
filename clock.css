@@ -1,0 +1,6 @@
+.ui-widget-clock { 
+    background-color:transparent;
+ }
+ .ui-widget-clock canvas{ 
+    background-color:rgb(1, 3, 16);
+ }
