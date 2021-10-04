@@ -2,29 +2,64 @@
  *
  * @param {string} clockid
  */
-function BuildClock(elementid) {
+function BuildClock(params) {
   const self = this;
-  this.clockid = elementid;
-  this.container = document.getElementById(elementid);
-  var container = this.container;
+  var elementid = null;
+  var _width = 320; // Base Build Size px
+
+  var canvasSize = 320; // Component default width
+  var dataini = new Date(); // Component Start Date - Default Current Time
+
+  // Component Options
+  var showDigital = false;
+  var paramsDigital = null;
+
+  // Handle Params
+  if (typeof (params) == "object") {
+    if (!params.clockid) {
+      console.log("NOT FOUND: clockid");
+      return;
+    }
+    elementid = params.clockid;
+  } else if (typeof (params) == "string") {
+    // Set Module Element ID
+    elementid = params;
+  }
+  else {
+    console.log("PARAMS NOT VALID");
+    return;
+  }
+
+  // Object Container
+  var container = document.getElementById(elementid);
+  // Set Canvas ID
   var canvasid = elementid + "-canvas";
-  // Component width
-  this.width = 320;
-  this.clockRadius = this.width * 0.5;
 
-  this.canvasSize = 200;
+  // Setting Module Properties
+  setParams(params);
 
-  let canvashtml = `<canvas id="${canvasid}" width="${this.canvasSize}" height="${this.canvasSize}"></canvas>`;
+  // Html Cnavas
+  var canvashtml = `<div style="width:100%"><canvas id="${canvasid}" width="${canvasSize}" height="${canvasSize}"></canvas></div>`;
   container.innerHTML = canvashtml;
   container.style.backgroundColor = "transparent";
   container.style.width = "100%";
 
+  // Set Title
+  if (params.title) {
+    showTitle(params.title);
+  }
+
+  // Clock Radius
+  var clockRadius = _width * 0.5;
+
+  // Canvas Html Element
   this.canvas = document.getElementById(canvasid);
   this.canvas.style.margin = "auto";
   this.canvas.style.backgroundColor = "rgb(76 0 0)";
-  this.canvas.style.borderRadius = this.canvasSize * 0.5 + "px";
+  this.canvas.style.borderRadius = canvasSize * 0.5 + "px";
   this.canvas.style.display = "block";
 
+  // Component Colors
   this.colors = {};
   this.colors.center = "rgb(225 12 12)";
   this.colors.secondPointer = "rgb(221 195 195)";
@@ -34,43 +69,39 @@ function BuildClock(elementid) {
   this.colors.bigTicks = "white";
   this.colors.numbers = "white";
   this.colors.borders = "#F5EEF8";
-
-  this.fontStyle = "16px Arial";
-
-  this.drawDigital = false;
-  this.paramsDigital = null;
-
-  this.dataini = new Date();
+  // Clock Font Style
+  this.fontStyle = "24px Arial";
 
   // Center Point
   var centerPoint = {
-    x: this.clockRadius,
-    y: this.clockRadius,
+    x: clockRadius,
+    y: clockRadius,
   };
   // Pointers lenght
   var endPoint = {
     x: centerPoint.x,
-    y: centerPoint.y - this.clockRadius * 0.72,
+    y: centerPoint.y - clockRadius * 0.72,
   };
-
   // Numbers Position
   var numberPoint = {
     x: centerPoint.x,
-    y: centerPoint.y - this.clockRadius * 0.78,
+    y: centerPoint.y - clockRadius * 0.77,
   };
 
-  // Middle Point
-  var midPoint = {
-    x: centerPoint.x + (endPoint.x - centerPoint.x) * 0.5,
-    y: centerPoint.y + (endPoint.y - centerPoint.y) * 0.5,
-  };
+  // Loop at each second
+  setInterval(build, 1000);
 
-  setInterval(function () {
-    // Get Context
+  /**
+   * Build Clock
+   * -----------
+   */
+  function build() {
+
+    // Create Temp Context
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    canvas.width = self.width;
-    canvas.height = self.width;
+    canvas.width = _width;
+    canvas.height = _width;
 
     // Draw Border
     drawBorder(ctx);
@@ -78,9 +109,9 @@ function BuildClock(elementid) {
     // Draw Numbers
     drawNumbers(ctx);
 
-    let sec = self.leadingZeros(self.dataini.getSeconds());
-    let min = self.leadingZeros(self.dataini.getMinutes());
-    let hour = self.leadingZeros(self.dataini.getHours());
+    let sec = self.leadingZeros(dataini.getSeconds());
+    let min = self.leadingZeros(dataini.getMinutes());
+    let hour = self.leadingZeros(dataini.getHours());
     // Hour Pointer
     let incHour = 2 / 12;
     let incMin = incHour * (min / 60);
@@ -103,6 +134,7 @@ function BuildClock(elementid) {
     var mctx = self.canvas.getContext("2d");
     // Clear canvas
     mctx.clearRect(0, 0, self.canvas.width, self.canvas.height);
+
     // Draw  Clock
     mctx.drawImage(
       canvas,
@@ -117,13 +149,13 @@ function BuildClock(elementid) {
     );
 
     // Draw Digital
-    if (self.drawDigital === true) {
-      drawDigital(self.paramsDigital);
+    if (showDigital === true) {
+      drawDigital(paramsDigital);
     }
 
     // Set current time
-    self.dataini.setTime(self.dataini.getTime() + 1000);
-  }, 1000);
+    dataini.setTime(dataini.getTime() + 1000);
+  };
 
   /**
    * Draw Hour Pointersolid 5px rgb(169, 149, 5)
@@ -144,9 +176,9 @@ function BuildClock(elementid) {
     ctx.translate(-centerPoint.x, -centerPoint.y);
 
     // draw line
-    ctx.moveTo(centerPoint.x, centerPoint.y);
+    ctx.moveTo(centerPoint.x, centerPoint.y + 20);
     ctx.lineTo(endPoint.x, endPoint.y * 2.3);
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 7;
     ctx.stroke();
     ctx.closePath();
 
@@ -173,9 +205,9 @@ function BuildClock(elementid) {
     ctx.translate(-centerPoint.x, -centerPoint.y);
 
     // draw line
-    ctx.moveTo(centerPoint.x, centerPoint.y);
+    ctx.moveTo(centerPoint.x, centerPoint.y + 20);
     ctx.lineTo(endPoint.x, endPoint.y * 1.5);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 5;
     ctx.stroke();
     ctx.closePath();
 
@@ -202,8 +234,8 @@ function BuildClock(elementid) {
     ctx.translate(-centerPoint.x, -centerPoint.y);
 
     // draw line
-    ctx.moveTo(centerPoint.x, centerPoint.y);
-    ctx.lineTo(endPoint.x, endPoint.y);
+    ctx.moveTo(centerPoint.x, centerPoint.y + 20);
+    ctx.lineTo(endPoint.x, endPoint.y * 1.2);
     ctx.lineWidth = 3;
     ctx.stroke();
     ctx.closePath();
@@ -222,14 +254,14 @@ function BuildClock(elementid) {
     ctx.arc(
       centerPoint.x,
       centerPoint.y,
-      self.clockRadius * 0.95,
+      clockRadius * 0.95,
       0,
       2 * Math.PI
     );
     ctx.arc(
       centerPoint.x,
       centerPoint.y,
-      self.clockRadius * 0.93,
+      clockRadius * 0.93,
       0,
       2 * Math.PI
     );
@@ -251,6 +283,7 @@ function BuildClock(elementid) {
   var drawNumbers = function (ctx) {
     ctx.lineWidth = 1;
     ctx.strokeStyle = self.colors.numbers;
+    ctx.fillStyle = self.colors.numbers;
     ctx.font = self.fontStyle;
 
     let inc = 2 / 12;
@@ -261,7 +294,7 @@ function BuildClock(elementid) {
       ctx.beginPath();
 
       // translate to centerpoint
-      ctx.translate(centerPoint.x - 4, centerPoint.y + 4);
+      ctx.translate(centerPoint.x - 7, centerPoint.y + 9);
 
       // rotate some angle (radians)
       ctx.rotate(rotation * Math.PI);
@@ -274,6 +307,7 @@ function BuildClock(elementid) {
       ctx.translate(-numberPoint.x, -numberPoint.y);
 
       ctx.strokeText(hour, numberPoint.x, numberPoint.y);
+      ctx.fillText(hour, numberPoint.x, numberPoint.y);
 
       // close path
       ctx.closePath();
@@ -307,8 +341,8 @@ function BuildClock(elementid) {
       ctx.translate(-centerPoint.x, -centerPoint.y);
 
       // draw line
-      ctx.moveTo(endPoint.x, endPoint.y - 25);
-      ctx.lineTo(endPoint.x, endPoint.y - 30);
+      ctx.moveTo(endPoint.x, endPoint.y - 26);
+      ctx.lineTo(endPoint.x, endPoint.y - 32);
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -345,7 +379,7 @@ function BuildClock(elementid) {
 
       // draw line
       ctx.moveTo(endPoint.x, endPoint.y - 25);
-      ctx.lineTo(endPoint.x, endPoint.y - 30);
+      ctx.lineTo(endPoint.x, endPoint.y - 32);
       ctx.lineWidth = 3;
       ctx.stroke();
 
@@ -380,12 +414,12 @@ function BuildClock(elementid) {
    * @param {params} object
    */
   var drawDigital = function (params = null) {
-    let sec = self.leadingZeros(self.dataini.getSeconds());
-    let min = self.leadingZeros(self.dataini.getMinutes());
-    let hour = self.leadingZeros(self.dataini.getHours());
+    let sec = self.leadingZeros(dataini.getSeconds());
+    let min = self.leadingZeros(dataini.getMinutes());
+    let hour = self.leadingZeros(dataini.getHours());
     let str = `${hour}:${min}:${sec}`;
 
-    let digitalid = self.clockid + "-digital";
+    let digitalid = elementid + "-digital";
     let olddiv = document.getElementById(digitalid);
     if (olddiv !== null) {
       olddiv.parentNode.removeChild(olddiv);
@@ -393,14 +427,38 @@ function BuildClock(elementid) {
 
     let div = document.createElement("div");
     div.setAttribute("id", digitalid);
-    self.container.append(div);
+    container.append(div);
 
     let digital = document.getElementById(digitalid);
     digital.innerHTML = str;
     digital.style.width = "100%";
     digital.style.textAlign = "center";
-    digital.style.marginTop = "10px";
+    digital.style.marginTop = "5px";
     digital.style.font = "16px Arial";
+  };
+
+  /**
+   * Show Title
+   * -----------
+   * @param {string} title
+   */
+  function showTitle(txtTitle) {
+    let titleid = elementid + "-title";
+    let olddiv = document.getElementById(titleid);
+    if (olddiv !== null) {
+      olddiv.parentNode.removeChild(olddiv);
+    }
+
+    let div = document.createElement("div");
+    div.setAttribute("id", titleid);
+    container.prepend(div);
+
+    let title = document.getElementById(titleid);
+    title.innerHTML = txtTitle;
+    title.style.width = "100%";
+    title.style.textAlign = "center";
+    title.style.marginBottom = "5px";
+    title.style.fontSize = "16px";
   };
 
   /**
@@ -415,7 +473,24 @@ function BuildClock(elementid) {
     }
     return val;
   };
-}
+
+  /**
+   * Setting Properties
+   * ------------------
+   * @param {object} params Setting available properties
+   */
+  function setParams(params) {
+    if (params.size) {
+      canvasSize = params.size;
+    }
+    if (params.date) {
+      dataini = new Date(params.date);
+    }
+    if (params.showDigital) {
+      showDigital = params.showDigital;
+    }
+  };
+};
 
 BuildClock.prototype.borderStyle = function (style) {
   this.canvas.style.border = style;
@@ -433,15 +508,11 @@ BuildClock.prototype.centerColor = function (color) {
   this.colors.center = color;
 };
 
-BuildClock.prototype.showDigital = function (params = null) {
-  this.drawDigital = true;
-  this.paramsDigital = params;
+BuildClock.prototype.showDigital = function (params = null, show = true) {
+  showDigital = show;
+  paramsDigital = params;
 };
 
 BuildClock.prototype.setTime = function (timestring) {
-  this.dataini = new Date(timestring);
-};
-
-BuildClock.prototype.setSize = function (size) {
-  this.canvasSize = size;
+  dataini = new Date(timestring);
 };

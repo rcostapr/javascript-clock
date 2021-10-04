@@ -1,1 +1,1 @@
-# Javascript Clock
+# Javascript Analog Clock
