@@ -22,12 +22,7 @@
     "easy clock"
   ],
   "author": "rcostapr <ruicosta.pr@gmail.com>",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rcostapr/javascript-clock/issues"
   },

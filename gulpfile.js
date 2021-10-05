@@ -21,7 +21,7 @@ const pkg = require('./package.json');
 const banner = ['/*!\n',
     ' * Rui Costa - <%= pkg.title %> v<%= pkg.version %> (<%= pkg.homepage %>)\n',
     ' * Copyright 2020-' + (new Date()).getFullYear(), ' <%= pkg.author %>\n',
-    ' * Licensed under <%= pkg.license %> (https://github.com/rcostapr/<%= pkg.name %>/blob/master/LICENSE)\n',
+    ' * Licensed under <%= pkg.license %> (https://github.com/rcostapr/javascript-clock/blob/master/LICENSE)\n',
     ' */\n',
     '\n'
 ].join('');
@@ -30,7 +30,7 @@ const banner = ['/*!\n',
 function browserSync(done) {
 
     browsersync.init({
-        proxy: "localhost:3003",
+        proxy: "localhost:3035",
         baseDir: "./public",
         open: true,
         notify: false
