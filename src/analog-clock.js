@@ -5,7 +5,7 @@
 function BuildClock(params) {
     const self = this;
     var elementid = null;
-    var _width = 320; // Base Build Size px
+    const _width = 320; // Base Build Size px
 
     var canvasSize = 320; // Component default width
     var dataini = new Date(); // Component Start Date - Default Current Time
@@ -15,17 +15,16 @@ function BuildClock(params) {
     var paramsDigital = null;
 
     // Handle Params
-    if (typeof (params) == "object") {
+    if (typeof params == "object") {
         if (!params.clockid) {
             console.log("NOT FOUND: clockid");
             return;
         }
         elementid = params.clockid;
-    } else if (typeof (params) == "string") {
+    } else if (typeof params == "string") {
         // Set Module Element ID
         elementid = params;
-    }
-    else {
+    } else {
         console.log("PARAMS NOT VALID");
         return;
     }
@@ -50,7 +49,7 @@ function BuildClock(params) {
     }
 
     // Clock Radius
-    var clockRadius = _width * 0.5;
+    const clockRadius = _width * 0.5;
 
     // Canvas Html Element
     this.canvas = document.getElementById(canvasid);
@@ -68,6 +67,7 @@ function BuildClock(params) {
     this.colors.ticks = "white";
     this.colors.bigTicks = "white";
     this.colors.numbers = "white";
+    this.colors.gradient = "rgb(200 0 0)";
     this.colors.borders = "rgb(76 0 0)";
     // Clock Font Style
     this.fontStyle = "24px Arial";
@@ -96,7 +96,6 @@ function BuildClock(params) {
      * -----------
      */
     function build() {
-
         // Create Temp Context
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
@@ -105,7 +104,6 @@ function BuildClock(params) {
 
         // Draw Border
         drawBorder(ctx);
-
 
         // Draw Numbers
         drawNumbers(ctx);
@@ -130,7 +128,6 @@ function BuildClock(params) {
         // Draw Ticks
         drawTicks(ctx);
         drawBigTicks(ctx);
-
 
         // Get Main Context
         var mctx = self.canvas.getContext("2d");
@@ -157,7 +154,7 @@ function BuildClock(params) {
 
         // Set current time
         dataini.setTime(dataini.getTime() + 1000);
-    };
+    }
 
     /**
      * Draw Hour Pointersolid 5px rgb(169, 149, 5)
@@ -247,14 +244,21 @@ function BuildClock(params) {
     };
 
     /**
-     * Draw Border
+     * Draw Border and Background
      * -----------
      * @param {context} ctx
      */
     var drawBorder = function (ctx) {
-
-        var gradient = ctx.createRadialGradient(centerPoint.x, centerPoint.y, clockRadius * 0.05, centerPoint.x, centerPoint.y, clockRadius * 1.2);
-        gradient.addColorStop(0, 'white');
+        var gradient = ctx.createRadialGradient(
+            centerPoint.x,
+            centerPoint.y,
+            clockRadius * 0.05,
+            centerPoint.x,
+            centerPoint.y,
+            clockRadius
+        );
+        gradient.addColorStop(0, self.colors.gradient);
+        //gradient.addColorStop(1, self.canvas.style.backgroundColor);
         gradient.addColorStop(1, self.colors.borders);
 
         ctx.beginPath();
@@ -470,7 +474,7 @@ function BuildClock(params) {
         title.style.textAlign = "center";
         title.style.marginBottom = "5px";
         title.style.fontSize = "16px";
-    };
+    }
 
     /**
      * Leading Zeros
@@ -500,8 +504,11 @@ function BuildClock(params) {
         if (params.showDigital) {
             showDigital = params.showDigital;
         }
-    };
-};
+        if (params.gradient) {
+            this.colors.gradient = params.gradient;
+        }
+    }
+}
 
 BuildClock.prototype.borderStyle = function (style) {
     this.canvas.style.border = style;
@@ -509,6 +516,7 @@ BuildClock.prototype.borderStyle = function (style) {
 
 BuildClock.prototype.backgroundColor = function (color) {
     this.canvas.style.backgroundColor = color;
+    this.colors.gradient = color;
 };
 
 BuildClock.prototype.borderRadius = function (radius) {
