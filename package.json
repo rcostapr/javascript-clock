@@ -1,6 +1,6 @@
 {
   "name": "@rcostapr/analog-clock",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended.",
   "main": "clock.js",
   "scripts": {
