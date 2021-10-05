@@ -1,0 +1,50 @@
+{
+  "name": "@rcostapr/analog-clock",
+  "version": "1.0.0",
+  "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended.",
+  "main": "clock.js",
+  "scripts": {
+    "start": "./node_modules/.bin/http-server -p 3005",
+    "watch": "gulp watch",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcostapr/javascript-clock.git"
+  },
+  "keywords": [
+    "javascript-clock",
+    "clock",
+    "analog-clock",
+    "analog clock",
+    "javascript clock",
+    "simple clock",
+    "easy clock"
+  ],
+  "author": "rcostapr <ruicosta.pr@gmail.com>",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/rcostapr/javascript-clock/issues"
+  },
+  "homepage": "https://github.com/rcostapr/javascript-clock#readme",
+  "deprecated": false,
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-header": "^2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-watch": "^5.0.1",
+    "merge-stream": "^2.0.0"
+  }
+}
