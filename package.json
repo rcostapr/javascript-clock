@@ -4,8 +4,7 @@
   "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended.",
   "main": "clock.js",
   "scripts": {
-    "start": "./node_modules/.bin/http-server -p 3005",
-    "watch": "gulp watch",
+    "start": "gulp watch",
     "test": "gulp test"
   },
   "repository": {
@@ -41,5 +40,11 @@
     "gulp-uglify": "^3.0.2",
     "gulp-watch": "^5.0.1",
     "merge-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.1",
+    "jquery": "^3.6.0",
+    "jquery-ui-dist": "^1.12.1",
+    "jquery.easing": "^1.4.1"
   }
 }

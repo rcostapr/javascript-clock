@@ -68,7 +68,7 @@ function BuildClock(params) {
     this.colors.ticks = "white";
     this.colors.bigTicks = "white";
     this.colors.numbers = "white";
-    this.colors.borders = "#F5EEF8";
+    this.colors.borders = "rgb(76 0 0)";
     // Clock Font Style
     this.fontStyle = "24px Arial";
 
@@ -106,6 +106,7 @@ function BuildClock(params) {
         // Draw Border
         drawBorder(ctx);
 
+
         // Draw Numbers
         drawNumbers(ctx);
 
@@ -129,6 +130,7 @@ function BuildClock(params) {
         // Draw Ticks
         drawTicks(ctx);
         drawBigTicks(ctx);
+
 
         // Get Main Context
         var mctx = self.canvas.getContext("2d");
@@ -250,6 +252,11 @@ function BuildClock(params) {
      * @param {context} ctx
      */
     var drawBorder = function (ctx) {
+
+        var gradient = ctx.createRadialGradient(centerPoint.x, centerPoint.y, clockRadius * 0.05, centerPoint.x, centerPoint.y, clockRadius * 1.2);
+        gradient.addColorStop(0, 'white');
+        gradient.addColorStop(1, self.colors.borders);
+
         ctx.beginPath();
         ctx.arc(
             centerPoint.x,
@@ -258,6 +265,7 @@ function BuildClock(params) {
             0,
             2 * Math.PI
         );
+
         ctx.arc(
             centerPoint.x,
             centerPoint.y,
@@ -265,9 +273,12 @@ function BuildClock(params) {
             0,
             2 * Math.PI
         );
+        ctx.lineWidth = 3;
         ctx.strokeStyle = self.colors.borders;
-        ctx.lineWidth = 2;
+        ctx.fillStyle = gradient;
+        ctx.shadowBlur = 15;
         ctx.stroke();
+        ctx.fill();
         ctx.closePath();
 
         // reset transforms

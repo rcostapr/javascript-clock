@@ -6,7 +6,6 @@ const browsersync = require("browser-sync").create();
 const cleanCSS = require("gulp-clean-css");
 const del = require("del");
 const gulp = require("gulp");
-const php = require('gulp-connect-php');
 const header = require("gulp-header");
 const merge = require("merge-stream");
 const plumber = require("gulp-plumber");
@@ -30,12 +29,11 @@ const banner = ['/*!\n',
 function browserSync(done) {
 
     browsersync.init({
-        proxy: "localhost:3035",
-        baseDir: "./public",
-        open: true,
-        notify: false
+        server: {
+            baseDir: "./public"
+        },
+        port: 3035
     });
-
     done();
 }
 
@@ -56,16 +54,6 @@ function browserSyncReload(done) {
     done();
 }
 
-// BrowserSync php
-function phpServer(done) {
-    php.server({
-        base: './public',
-        port: 3003,
-        keepalive: true
-    });
-    done();
-}
-
 // Clean vendor
 function clean() {
     return del(["./public/vendor/"]);
@@ -81,80 +69,9 @@ function modules() {
     var bootstrapSCSS = gulp.src('./node_modules/bootstrap/scss/**/*')
         .pipe(gulp.dest('./public/vendor/bootstrap/scss'));
 
-    // ChartJS
-    var chartJS = gulp.src('./node_modules/chart.js/dist/*.js')
-        .pipe(gulp.dest('./public/vendor/chart.js'));
-
-    // Toastr
-    var toastr = gulp.src('./node_modules/toastr/build/*.js')
-        .pipe(gulp.dest('./public/vendor/toastr'));
-    // Toastr SCSS
-    var toastrSCSS = gulp.src('./node_modules/toastr/toastr.scss')
-        .pipe(gulp.dest('./public/vendor/toastr/scss'));
-
-    // Sweetalert2
-    var sweetalert2 = gulp.src('./node_modules/sweetalert2/dist/*.js')
-        .pipe(gulp.dest('./public/vendor/sweetalert2'));
-    // Sweetalert SCSS
-    var sweetalertSCSS = gulp.src('./node_modules/sweetalert2/src/*.scss')
-        .pipe(gulp.dest('./public/vendor/sweetalert2/scss'));
-    // Sweetalert2 SCSS
-    var sweetalert2SCSS = gulp.src('./node_modules/sweetalert2/src/scss/*')
-        .pipe(gulp.dest('./public/vendor/sweetalert2/scss/scss'));
-
-    // Select2
-    var select2 = gulp.src('./node_modules/select2/dist/js/*.js')
-        .pipe(gulp.dest('./public/vendor/select2'));
-    // Select2 SCSS
-    var select2SCSS = gulp.src('./node_modules/select2/src/scss/**/*')
-        .pipe(gulp.dest('./public/vendor/select2/scss/scss'));
-    // Select2 css
-    var select2CSS = gulp.src('./node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css')
-        .pipe(gulp.dest('./public/vendor/select2/css'));
-
-    // Quill
-    var quill = gulp.src('./node_modules/quill/dist/*')
-        .pipe(gulp.dest('./public/vendor/quill'));
-
-    // Perfect Scrollbar
-    var perfectScrollbarCSS = gulp.src('./node_modules/perfect-scrollbar/css/perfect-scrollbar.css')
-        .pipe(gulp.dest('./public/vendor/perfect-scrollbar'));
-    var perfectScrollbar = gulp.src('./node_modules/perfect-scrollbar/dist/*')
-        .pipe(gulp.dest('./public/vendor/perfect-scrollbar'));
-
-    // Katex
-    var katex = gulp.src('./node_modules/katex/dist/**/*')
-        .pipe(gulp.dest('./public/vendor/katex'));
-
-    // DROPZONE
-    var dropzoneCSS = gulp.src('./node_modules/dropzone/dist/min/dropzone.min.css')
-        .pipe(gulp.dest('./public/vendor/dropzone'));
-
-    var dropzone = gulp.src('./node_modules/dropzone/dist/min/dropzone.min.js')
-        .pipe(gulp.dest('./public/vendor/dropzone'));
-
-    // APEX 
-    var apexCSS = gulp.src('./node_modules/apexcharts/dist/apexcharts.css')
-        .pipe(gulp.dest('./public/vendor/apex'));
-
-    var apex = gulp.src('./node_modules/apexcharts/dist/apexcharts.min.js')
-        .pipe(gulp.dest('./public/vendor/apex'));
-
-    // socket io
-    var socket = gulp.src('./node_modules/socket.io-client/dist/socket.io.js')
-        .pipe(gulp.dest('./public/vendor/socket.io'));
-
-    // dataTables
-    var dataTables = gulp.src([
-        './node_modules/datatables.net/js/*.js',
-        './node_modules/datatables.net-bs4/js/*.js',
-        './node_modules/datatables.net-bs4/css/*.css'
-    ])
-        .pipe(gulp.dest('./public/vendor/datatables'));
-
-    // Font Awesome
-    var fontAwesome = gulp.src('./node_modules/@fortawesome/**/*')
-        .pipe(gulp.dest('./public/vendor'));
+    // Bootstrap CSS
+    var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/*.min.*')
+        .pipe(gulp.dest('./public/vendor/bootstrap/css'));
 
     // jQuery Easing
     var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
@@ -175,7 +92,7 @@ function modules() {
         .pipe(gulp.dest('./public/vendor/jqueryui'));
     ;
 
-    return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryui, jqueryEasing, toastr, toastrSCSS, sweetalert2, sweetalertSCSS, sweetalert2SCSS, select2, select2SCSS, select2CSS, dropzone, dropzoneCSS, apex, apexCSS, quill, perfectScrollbarCSS, perfectScrollbar, katex, socket);
+    return merge(bootstrapJS, bootstrapSCSS, bootstrapCSS, jquery, jqueryui, jqueryEasing);
 }
 
 // CSS task
@@ -209,6 +126,7 @@ function js() {
         .src([
             './public/js/*.js',
             '!./public/js/*.min.js',
+            './src/analog-clock.js',
         ])
         .pipe(uglify())
         .pipe(header(banner, {
@@ -225,13 +143,14 @@ function js() {
 function watchFiles() {
     gulp.watch("./scss/**/*", css);
     gulp.watch(["./public/js/**/*", "!./public/js/**/*.min.js"], js);
-    gulp.watch("./**/public/**/*.php", browserSyncReload);
+    gulp.watch(["./src/analog-clock.js"], js);
+    gulp.watch("./**/public/*.html", browserSyncReload);
 }
 
 // Define complex tasks
 const vendor = gulp.series(clean, modules);
 const build = gulp.series(vendor, gulp.parallel(css, js));
-const watch = gulp.series(build, gulp.parallel(watchFiles, phpServer, browserSync));
+const watch = gulp.series(build, gulp.parallel(watchFiles, browserSync));
 
 // Export tasks
 exports.css = css;
