@@ -1,14 +1,14 @@
 # Javascript Analog Clock
 ![Analog Clock](https://github.com/rcostapr/javascript-clock/blob/master/img/Clock_Component_1.png?raw=true)
 
+![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Downloads](https://img.shields.io/github/downloads/rcostapr/javascript-clock/total.svg)
+![Stars](https://img.shields.io/github/stars/rcostapr/javascript-clock.svg)
+![Watchers](https://img.shields.io/github/watchers/rcostapr/javascript-clock.svg)
 ## Download
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rcostapr/javascript-clock)
-
-<a id="raw-url" href="https://github.com/rcostapr/javascript-clock/releases/download/javascript-jquery-analog-clock/analog-clock.min.js">Download Latest</a>
-
-The MIT License [![DOWNLOAD: Latest](https://img.shields.io/badge/License-MIT-yellow.svg)]()
-
+<a id="raw-url" href="https://github.com//rcostapr/javascript-clock/releases/latest">Download Latest Release</a>
+ 	
 ## 🔧 Install
 ```
 npm i @rcostapr/analog-clock
