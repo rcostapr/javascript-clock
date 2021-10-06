@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const clock = new AnalogClock("clock",
     {
       size: 160,
-      title: "Portugal",
+      title: "England",
       showDigital: true,
       //date: "2021-10-04T14:14:20.130Z",
     }
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const clock2 = new AnalogClock("clock2",
     {
       size: 160,
-      title: "Espanha",
+      title: "Spain",
       showDigital: true,
       date: dt.toISOString(),
     }
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const clock3 = new AnalogClock("clock3",
     {
       size: 160,
-      title: "Açores",
+      title: "Azores",
       showDigital: true,
       date: dt.toISOString(),
     }
