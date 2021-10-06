@@ -14,6 +14,7 @@ function AnalogClock(clockid, params = null) {
     // Component Options
     var showDigital = false;
     var paramsDigital = null;
+    var showTitle = false;
 
     // Handle Clock Container
     if (typeof clockid == "string") {
@@ -29,20 +30,23 @@ function AnalogClock(clockid, params = null) {
     var canvasid = elementid + "-canvas";
 
     // Handle Params
-    if (params && typeof params == "object") {
+    if (params !== null && typeof params == "object") {
         // Setting Module Properties
         setParams(params);
+        // Set Title
+        if (params.title) {
+            showTitle = true;
+        }
     }
 
-    // Html Cnavas
+    // Html Canvas
     var canvashtml = `<div style="width:100%"><canvas id="${canvasid}" width="${canvasSize}" height="${canvasSize}"></canvas></div>`;
     container.innerHTML = canvashtml;
     container.style.backgroundColor = "transparent";
     container.style.width = "100%";
 
-    // Set Title
-    if (params.title) {
-        showTitle(params.title);
+    if (showTitle === true) {
+        ShowTitle(params.title);
     }
 
     // Clock Radius
@@ -454,7 +458,7 @@ function AnalogClock(clockid, params = null) {
      * -----------
      * @param {string} title
      */
-    function showTitle(txtTitle) {
+    function ShowTitle(txtTitle) {
         let titleid = elementid + "-title";
         let olddiv = document.getElementById(titleid);
         if (olddiv !== null) {

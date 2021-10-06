@@ -56,7 +56,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   clock3.colors.ticks = "rgb(188, 232, 208)";
   clock3.colors.bigTicks = "rgb(188, 232, 208)";
 
-  var dt = new Date();
+  AnalogClock("clock4");
+
+  /*var dt = new Date();
   dt.setHours(dt.getHours() + 2.5);
   const clock4 = new AnalogClock("clock4",
     {
@@ -75,5 +77,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
   clock4.colors.numbers = "rgb(248, 225, 166)";
   clock4.colors.borders = "rgb(145, 117, 46)";
   clock4.colors.ticks = "rgb(218, 175, 68)";
-  clock4.colors.bigTicks = "rgb(218, 175, 68)";
+  clock4.colors.bigTicks = "rgb(218, 175, 68)";*/
 });
