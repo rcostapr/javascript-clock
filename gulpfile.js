@@ -139,6 +139,22 @@ function js() {
         .pipe(browsersync.stream());
 }
 
+// DIST task
+function dist() {
+    return gulp
+        .src([
+            './src/analog-clock.js',
+        ])
+        .pipe(uglify())
+        .pipe(header(banner, {
+            pkg: pkg
+        }))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('./dist'));
+}
+
 // Watch files
 function watchFiles() {
     gulp.watch("./scss/**/*", css);
@@ -149,7 +165,7 @@ function watchFiles() {
 
 // Define complex tasks
 const vendor = gulp.series(clean, modules);
-const build = gulp.series(vendor, gulp.parallel(css, js));
+const build = gulp.series(vendor, gulp.parallel(css, js, dist));
 const watch = gulp.series(build, gulp.parallel(watchFiles, browserSync));
 
 // Export tasks

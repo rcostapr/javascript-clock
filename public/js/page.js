@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-  const clock = new BuildClock(
+  const clock = new AnalogClock(
     {
       clockid: "clock",
       size: 160,
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       //date: "2021-10-04T14:14:20.130Z",
     }
   );
-  //const clock = new BuildClock("clock");
+  //const clock = new AnalogClock("clock");
   //clock.showDigital();
   //clock.setTime("2020-12-17T21:59:45");
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   var dt = new Date();
   dt.setHours(dt.getHours() + 1);
-  const clock2 = new BuildClock(
+  const clock2 = new AnalogClock(
     {
       clockid: "clock2",
       size: 160,
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   );
   var dt = new Date();
   dt.setHours(dt.getHours() - 1);
-  const clock3 = new BuildClock(
+  const clock3 = new AnalogClock(
     {
       clockid: "clock3",
       size: 160,
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   var dt = new Date();
   dt.setHours(dt.getHours() + 2.5);
-  const clock4 = new BuildClock(
+  const clock4 = new AnalogClock(
     {
       clockid: "clock4",
       size: 160,

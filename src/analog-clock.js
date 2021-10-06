@@ -2,7 +2,7 @@
  *
  * @param {string} clockid
  */
-function BuildClock(params) {
+function AnalogClock(params) {
     const self = this;
     var elementid = null;
     const _width = 320; // Base Build Size px
@@ -510,28 +510,28 @@ function BuildClock(params) {
     }
 }
 
-BuildClock.prototype.borderStyle = function (style) {
+AnalogClock.prototype.borderStyle = function (style) {
     this.canvas.style.border = style;
 };
 
-BuildClock.prototype.backgroundColor = function (color) {
+AnalogClock.prototype.backgroundColor = function (color) {
     this.canvas.style.backgroundColor = color;
     this.colors.gradient = color;
 };
 
-BuildClock.prototype.borderRadius = function (radius) {
+AnalogClock.prototype.borderRadius = function (radius) {
     this.canvas.style.borderRadius = radius;
 };
 
-BuildClock.prototype.centerColor = function (color) {
+AnalogClock.prototype.centerColor = function (color) {
     this.colors.center = color;
 };
 
-BuildClock.prototype.showDigital = function (params = null, show = true) {
+AnalogClock.prototype.showDigital = function (params = null, show = true) {
     showDigital = show;
     paramsDigital = params;
 };
 
-BuildClock.prototype.setTime = function (timestring) {
+AnalogClock.prototype.setTime = function (timestring) {
     dataini = new Date(timestring);
 };

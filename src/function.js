@@ -1,5 +1,5 @@
-function img() {
-  var canvas = document.getElementById("myCanvas");
+function img(canvasid) {
+  var canvas = document.getElementById(canvasid);
   ctx = canvas.getContext("2d");
   image = new Image();
 
