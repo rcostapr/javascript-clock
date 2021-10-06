@@ -9,7 +9,8 @@
 
 <a id="raw-url" href="https://github.com//rcostapr/javascript-clock/releases/latest">Latest Release</a>
 
-[Download Latest Version](https://raw.githubusercontent.com/rcostapr/javascript-clock/master/dist/analog-clock.min.js)
+
+<a href="https://raw.githubusercontent.com/rcostapr/javascript-clock/master/dist/analog-clock.min.js" target="_blank">Download Latest Version</a>
  	
 ## 🔧 Install
 ```
