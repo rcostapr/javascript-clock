@@ -7,10 +7,8 @@
 ![Watchers](https://img.shields.io/github/watchers/rcostapr/javascript-clock.svg)
 ## Download
 
-<span title="Label: Latest" data-view-component="true" class="Label Label--success flex-shrink-0">Latest</span><a id="raw-url" href="https://github.com//rcostapr/javascript-clock/releases/latest">Latest Release</a>
+[![Analog Clock](https://github.com/rcostapr/javascript-clock/blob/master/img/release.png?raw=true)](https://github.com/rcostapr/javascript-clock/releases/latest)
 
-
-<a rel="nofollow" href="https://raw.githubusercontent.com/rcostapr/javascript-clock/master/dist/analog-clock.min.js" class="d-flex flex-items-center min-width-0" target="_blank">Download Latest Version</a>
  	
 ## 🔧 Install
 ```
