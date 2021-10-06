@@ -1,8 +1,9 @@
 /**
- *
+ * Build Analog Clock
  * @param {string} clockid
+ * @param {object} params
  */
-function AnalogClock(params) {
+function AnalogClock(clockid, params = null) {
     const self = this;
     var elementid = null;
     const _width = 320; // Base Build Size px
@@ -14,28 +15,24 @@ function AnalogClock(params) {
     var showDigital = false;
     var paramsDigital = null;
 
-    // Handle Params
-    if (typeof params == "object") {
-        if (!params.clockid) {
-            console.log("NOT FOUND: clockid");
-            return;
-        }
-        elementid = params.clockid;
-    } else if (typeof params == "string") {
+    // Handle Clock Container
+    if (typeof clockid == "string") {
         // Set Module Element ID
-        elementid = params;
+        elementid = clockid;
     } else {
-        console.log("PARAMS NOT VALID");
+        console.log("NOT VALID clockid : " + typeof clockid);
         return;
     }
-
     // Object Container
     var container = document.getElementById(elementid);
     // Set Canvas ID
     var canvasid = elementid + "-canvas";
 
-    // Setting Module Properties
-    setParams(params);
+    // Handle Params
+    if (params && typeof params == "object") {
+        // Setting Module Properties
+        setParams(params);
+    }
 
     // Html Cnavas
     var canvashtml = `<div style="width:100%"><canvas id="${canvasid}" width="${canvasSize}" height="${canvasSize}"></canvas></div>`;
@@ -534,4 +531,33 @@ AnalogClock.prototype.showDigital = function (params = null, show = true) {
 
 AnalogClock.prototype.setTime = function (timestring) {
     dataini = new Date(timestring);
+};
+
+window.onload = function () {
+    if (window.jQuery) {
+        (function ($) {
+
+            $.fn.extend({
+                AnalogClock: function (options) {
+                    options = $.extend({}, $.AnalogClock.defaults, options);
+
+                    this.each(function () {
+                        new $.AnalogClock(this, options);
+                    });
+                    return this;
+                }
+            });
+
+            // element is the jquery element, options is the set of defaults + user options
+            $.AnalogClock = function (element, options) {
+                new AnalogClock(element.id, options);
+            };
+
+            // option defaults
+            $.AnalogClock.defaults = {
+                size: 160
+            };
+
+        })(jQuery);
+    }
 };

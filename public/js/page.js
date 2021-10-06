@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-  const clock = new AnalogClock(
+  const clock = new AnalogClock("clock",
     {
-      clockid: "clock",
       size: 160,
       title: "Portugal",
       showDigital: true,
@@ -27,9 +26,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   var dt = new Date();
   dt.setHours(dt.getHours() + 1);
-  const clock2 = new AnalogClock(
+  const clock2 = new AnalogClock("clock2",
     {
-      clockid: "clock2",
       size: 160,
       title: "Espanha",
       showDigital: true,
@@ -38,9 +36,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   );
   var dt = new Date();
   dt.setHours(dt.getHours() - 1);
-  const clock3 = new AnalogClock(
+  const clock3 = new AnalogClock("clock3",
     {
-      clockid: "clock3",
       size: 160,
       title: "Açores",
       showDigital: true,
@@ -61,9 +58,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   var dt = new Date();
   dt.setHours(dt.getHours() + 2.5);
-  const clock4 = new AnalogClock(
+  const clock4 = new AnalogClock("clock4",
     {
-      clockid: "clock4",
       size: 160,
       title: "Russia",
       showDigital: true,
