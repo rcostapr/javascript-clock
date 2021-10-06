@@ -73,9 +73,6 @@ function modules() {
     var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/*.min.*')
         .pipe(gulp.dest('./public/vendor/bootstrap/css'));
 
-    // jQuery Easing
-    var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
-        .pipe(gulp.dest('./public/vendor/jquery-easing'));
     // jQuery
     var jquery = gulp.src([
         './node_modules/jquery/dist/*',
@@ -83,16 +80,8 @@ function modules() {
     ])
         .pipe(gulp.dest('./public/vendor/jquery'));
 
-    // jQuery UI
-    var jqueryui = gulp.src([
-        './node_modules/jquery-ui-dist/jquery-ui.min.js',
-        './node_modules/jquery-ui-dist/jquery-ui.min.css',
-        './node_modules/jquery-ui-dist/jquery-ui.theme.min.css',
-    ])
-        .pipe(gulp.dest('./public/vendor/jqueryui'));
-    ;
 
-    return merge(bootstrapJS, bootstrapSCSS, bootstrapCSS, jquery, jqueryui, jqueryEasing);
+    return merge(bootstrapJS, bootstrapSCSS, bootstrapCSS, jquery);
 }
 
 // CSS task
