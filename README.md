@@ -20,7 +20,7 @@ HTML
 <div id="clock4"></div>
 <script src="analog-clock.min.js"></script>
 ```
-SCRIPT - Show Clock with current time and default settings
+SCRIPT PAGE - Show Clock with current time and default settings
 ``` javascript
 AnalogClock("clock4");
 ```
@@ -52,10 +52,14 @@ var dt = new Date();
     }
   );
 ```
-## 💡 jQuery Usage
+## 💡 React Component
 ```javascript
-$("#clock3").AnalogClock({ "title": "jQuery Element" });
+import AnalogClock from '@rcostapr/AnalogClock';
+<AnalogClock id="clock" />
 ```
+
+
+## 💡 jQuery Usage
 ## ⚖️ License
 
 The MIT License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
