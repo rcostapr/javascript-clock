@@ -52,14 +52,60 @@ var dt = new Date();
     }
   );
 ```
+## 💡 jQuery Usage
+```javascript
+$("#clock3").AnalogClock({ "title": "jQuery Element" });
+```
+
 ## 💡 React Component
 ```javascript
-import AnalogClock from '@rcostapr/AnalogClock';
+import AnalogClock from '@rcostapr/analog-clock';
+....
 <AnalogClock id="clock" />
 ```
 
+### Example index.js
+```javascript
+import React from 'react';
+import ReactDom from 'react-dom';
+import AnalogClock from '@rcostapr/analog-clock';
 
-## 💡 jQuery Usage
+class App extends React.Component {
+  render() {
+    const colors = {
+      center: "red",
+      background: "rgb(99 167 114)",
+      secondPointer: "rgb(34, 116, 71)",
+      hourPointer: "rgb(34, 116, 71)",
+      minutePointer: "rgb(34, 116, 71)",
+      numbers: "rgb(188, 232, 208)",
+      borders: "rgb(1, 126, 59)",
+      ticks: "rgb(188, 232, 208)",
+      bigTicks: "rgb(188, 232, 208)",
+      borderStyle: "1px solid rgb(1, 126, 59)",
+      fontStyle: "24px Arial",
+    };
+
+    var dt = new Date();
+    dt.setHours(dt.getHours() + 1);
+    const params = {
+      size: 200,
+      title: "Analog Clock",
+      showDigital: true,
+      date: dt.toISOString(),
+    };
+
+     return (
+      <div>
+        <h1 className="text-center">React Component Analog Clock</h1>
+        <div className="row">
+          <div className="col-sm-4 col-md-2">
+            <AnalogClock id="clock" colors={colors} params={params} />
+          </div>
+        </div>
+      </div>
+    );
+```
 ## ⚖️ License
 
 The MIT License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
