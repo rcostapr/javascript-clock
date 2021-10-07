@@ -1,11 +1,9 @@
 {
   "name": "@rcostapr/analog-clock",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended. Simple jQuery integration.",
-  "main": "dist/analog-clock.min.js",
-  "exports": {
-    "./": "./react-clock/src/"
-  },
+  "main": "react-clock/src/AnalogClock.js",
+  "module": "react-clock/src/AnalogClock.js",
   "scripts": {
     "start": "gulp watch",
     "test": "gulp",
