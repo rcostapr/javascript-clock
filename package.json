@@ -1,13 +1,13 @@
 {
   "name": "@rcostapr/analog-clock",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended. Simple jQuery integration.",
-  "main": "react-clock/src/AnalogClock.js",
-  "module": "react-clock/src/AnalogClock.js",
+  "main": "react-clock/dist/AnalogClock.js",
+  "module": "react-clock/dist/AnalogClock.js",
   "scripts": {
     "start": "gulp watch",
     "test": "gulp",
-    "build": "gulp build"
+    "build": "rm -rf react-clock/dist && NODE_ENV=production babel react-clock/src/lib --out-dir react-clock/dist --copy-files"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,10 @@
   "homepage": "https://github.com/rcostapr/javascript-clock#readme",
   "deprecated": false,
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
     "bootstrap": "^5.1.1",
     "browser-sync": "^2.26.13",
     "del": "^5.1.0",
@@ -48,5 +52,7 @@
     "merge-stream": "^2.0.0",
     "sass": "^1.42.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  }
 }

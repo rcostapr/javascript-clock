@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import AnalogClock from './AnalogClock';
+import AnalogClock from './lib/AnalogClock';
 
 class App extends React.Component {
   render() {
