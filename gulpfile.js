@@ -10,7 +10,7 @@ const header = require("gulp-header");
 const merge = require("merge-stream");
 const plumber = require("gulp-plumber");
 const rename = require("gulp-rename");
-const sass = require("gulp-sass");
+const nodesass = require('gulp-sass')(require('sass'));
 const uglify = require("gulp-uglify");
 
 // Load package.json for banner
@@ -64,14 +64,16 @@ function modules() {
 
     // Bootstrap JS
     var bootstrapJS = gulp.src('./node_modules/bootstrap/dist/js/*')
-        .pipe(gulp.dest('./public/vendor/bootstrap/js'));
+        .pipe(gulp.dest('./public/vendor/bootstrap/js'))
+        .pipe(gulp.dest('./react-clock/public/vendor/bootstrap/js'));
     // Bootstrap SCSS
     var bootstrapSCSS = gulp.src('./node_modules/bootstrap/scss/**/*')
         .pipe(gulp.dest('./public/vendor/bootstrap/scss'));
 
     // Bootstrap CSS
     var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/*.min.*')
-        .pipe(gulp.dest('./public/vendor/bootstrap/css'));
+        .pipe(gulp.dest('./public/vendor/bootstrap/css'))
+        .pipe(gulp.dest('./react-clock/public/vendor/bootstrap/css'));
 
     // jQuery
     var jquery = gulp.src([
@@ -89,11 +91,11 @@ function css() {
     return gulp
         .src("./scss/**/*.scss")
         .pipe(plumber())
-        .pipe(sass({
+        .pipe(nodesass({
             outputStyle: "expanded",
             includePaths: "./node_modules",
         }))
-        .on("error", sass.logError)
+        .on("error", nodesass.logError)
         .pipe(autoprefixer({
             cascade: false
         }))
@@ -142,6 +144,7 @@ function dist() {
             suffix: '.min'
         }))
         .pipe(gulp.dest('./dist'));
+    //.pipe(gulp.dest('./react-clock/src'));
 }
 
 // Watch files

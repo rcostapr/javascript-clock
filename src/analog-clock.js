@@ -542,7 +542,7 @@ window.onload = function () {
         (function ($) {
 
             $.fn.extend({
-                AnalogClock: function (options) {
+                AnalogClock: function (options = {}) {
                     options = $.extend({}, $.AnalogClock.defaults, options);
 
                     this.each(function () {

@@ -1,6 +1,6 @@
 {
   "name": "@rcostapr/analog-clock",
-  "version": "1.7.4",
+  "version": "2.0.0",
   "description": "Javascript Analog Clock. The goal is to create a simple core library that can be customized and extended. Simple jQuery integration.",
   "main": "dist/analog-clock.min.js",
   "scripts": {
@@ -13,11 +13,11 @@
     "url": "git+https://github.com/rcostapr/javascript-clock.git"
   },
   "keywords": [
-    "javascript-clock",
     "clock",
-    "analog-clock",
-    "analog clock",
     "javascript clock",
+    "analog clock",
+    "react clock",
+    "react analog clock",
     "simple clock",
     "easy clock",
     "jQuery clock",
@@ -32,7 +32,6 @@
   "deprecated": false,
   "devDependencies": {
     "bootstrap": "^5.1.1",
-    "jquery": "^3.6.0",
     "browser-sync": "^2.26.13",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -41,10 +40,12 @@
     "gulp-header": "^2.0.9",
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-watch": "^5.0.1",
-    "merge-stream": "^2.0.0"
+    "jquery": "^3.6.0",
+    "merge-stream": "^2.0.0",
+    "sass": "^1.42.1"
   },
   "dependencies": {}
 }

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   dt.setHours(dt.getHours() - 1);
   const clock3 = new AnalogClock("clock3",
     {
-      size: 160,
+      size: 192,
       title: "Azores",
       showDigital: true,
       date: dt.toISOString(),
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   clock3.colors.bigTicks = "rgb(188, 232, 208)";
 
   var dt = new Date();
-  dt.setHours(dt.getHours() + 2.5);
+  dt.setHours(dt.getHours() + 2);
   const clock4 = new AnalogClock("clock4",
     {
       size: 160,
