@@ -105,6 +105,10 @@ class App extends React.Component {
         </div>
       </div>
     );
+  }
+}
+
+ReactDom.render(<App />, document.getElementById('root'));
 ```
 ## ⚖️ License
 
